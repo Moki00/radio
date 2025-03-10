@@ -33,13 +33,25 @@
       async function updateRadio() {
         const id = document.getElementById("radioId").value;
         const alias = document.getElementById("radioAlias").value;
-        const response = await fetch("/api/update", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id, alias }),
-        });
-        const result = await response.json();
-        document.getElementById("message").innerText = result.message;
+
+        if (!id || !alias) {
+          document.getElementById("message").innerText =
+            "Please fill in both fields";
+          return;
+        }
+
+        try {
+          const response = await fetch("http://localhost:3000/api/update", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id, alias }),
+          });
+          const result = await response.json();
+          document.getElementById("message").innerText = result.message;
+        } catch (error) {
+          document.getElementById("message").innerText =
+            "Error connecting to server";
+        }
       }
     </script>
   </body>

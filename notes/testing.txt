@@ -1,0 +1,7 @@
+
+
+try id 3201424
+serial 652CVM0181
+alias testingTimeOfDay
+it's a lost radio
+
