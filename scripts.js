@@ -59,8 +59,15 @@ async function updateRadio() {
   const radioId = document.getElementById('modalRadioId').innerText;
   const alias = document.getElementById('modalAlias').value.trim();
 
+  const aliasRegex = /^FD [a-zA-Z0-9]+$/;
+
   if (!alias) {
     alert('Alias cannot be empty');
+    return;
+  }
+
+  if (!aliasRegex.test(alias)) {
+    alert('Invalid alias. Alias must start with "FD " followed by alphanumeric characters.');
     return;
   }
 
