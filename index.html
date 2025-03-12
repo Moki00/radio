@@ -6,53 +6,60 @@
     <title>Radio Inventory</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-gray-100 flex items-center justify-center h-screen">
-    <div class="bg-white p-6 rounded shadow-md w-96">
-      <h2 class="text-xl font-bold mb-4">Update Radio Alias</h2>
-      <label for="radioId" class="block mb-2">Radio ID:</label>
+  <body class="bg-gray-100 flex flex-col items-center p-6 space-y-6">
+    <!-- Search Section -->
+    <div class="bg-white p-6 rounded shadow-md w-full max-w-2xl">
+      <h2 class="text-xl font-bold mb-4">Search Radio</h2>
       <input
-        id="radioId"
+        id="searchQuery"
         type="text"
         class="border p-2 w-full mb-4"
-        placeholder="Enter Radio ID"
+        placeholder="Search by Radio ID, Serial #, or User Alias"
       />
-      <label for="radioAlias" class="block mb-2">New Alias:</label>
+      <button onclick="searchRadios()" class="bg-blue-500 text-white p-2 w-full">Search</button>
+    </div>
+
+    <!-- Results Table -->
+    <div class="bg-white p-6 rounded shadow-md w-full max-w-max overflow-x-auto">
+      <h2 class="text-xl font-bold mb-4">Search Results</h2>
+      <table class="w-full border-collapse border border-gray-300">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="border p-2">Serial #</th>
+            <th class="border p-2">Radio ID</th>
+            <th class="border p-2">User Alias</th>
+            <th class="border p-2">Equipment Type</th>
+            <th class="border p-2">Department</th>
+            <th class="border p-2">Comments</th>
+          </tr>
+        </thead>
+        <tbody id="resultsTable">
+          <!-- Results will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Update Alias Section -->
+    <div class="bg-white p-6 rounded shadow-md w-full max-w-2xl">
+      <h2 class="text-xl font-bold mb-4">Update Radio Alias</h2>
+      <label class="block mb-2">Radio ID or Serial #:</label>
       <input
-        id="radioAlias"
+        id="updateId"
+        type="text"
+        class="border p-2 w-full mb-4"
+        placeholder="Enter Radio ID or Serial #"
+      />
+      <label class="block mb-2">New Alias:</label>
+      <input
+        id="updateAlias"
         type="text"
         class="border p-2 w-full mb-4"
         placeholder="Enter New Alias"
       />
-      <button onclick="updateRadio()" class="bg-blue-500 text-white p-2 w-full">
-        Update
-      </button>
-      <p id="message" class="mt-4 text-center"></p>
+      <button onclick="updateRadio()" class="bg-green-500 text-white p-2 w-full">Update</button>
+      <p id="updateMessage" class="mt-4 text-center"></p>
     </div>
 
-    <script>
-      async function updateRadio() {
-        const id = document.getElementById("radioId").value;
-        const alias = document.getElementById("radioAlias").value;
-
-        if (!id || !alias) {
-          document.getElementById("message").innerText =
-            "Please fill in both fields";
-          return;
-        }
-
-        try {
-          const response = await fetch("http://localhost:3000/api/update", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id, alias }),
-          });
-          const result = await response.json();
-          document.getElementById("message").innerText = result.message;
-        } catch (error) {
-          document.getElementById("message").innerText =
-            "Error connecting to server";
-        }
-      }
-    </script>
+    <script src="scripts.js"></script>
   </body>
 </html>
