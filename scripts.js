@@ -59,26 +59,43 @@ async function updateRadio() {
   const radioId = document.getElementById('modalRadioId').innerText;
   const alias = document.getElementById('modalAlias').value.trim();
 
-  const aliasRegex = /^FD [a-zA-Z0-9]+$/;
-
-  if (!alias) {
-    alert('Alias cannot be empty');
-    return;
-  }
+  const aliasRegex = /^FD (?=.{2,13}$)[a-zA-Z0-9]+([ -][a-zA-Z0-9]+)?$/;
 
   if (!aliasRegex.test(alias)) {
-    alert('Invalid alias. Alias must start with "FD " followed by alphanumeric characters.');
+    alert(
+      'Invalid! Alias must start with "FD " followed by 2 to 13 letters, numbers, and optionally one space or dash.'
+    );
     return;
   }
 
-  const response = await fetch('http://localhost:3000/api/update', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ 'Radio ID': radioId, 'Serial #': serial, 'User Alias': alias }),
-  });
+  try {
+    const response = await fetch('http://localhost:3000/api/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 'Radio ID': radioId, 'Serial #': serial, 'User Alias': alias }),
+    });
 
-  if (response.ok) {
-    searchRadios(); // Refresh results
-    closeModal();
+    const results = await response.json();
+    console.log(results);
+
+    const respondMessage = document.getElementById('responseMessage');
+    respondMessage.innerText = results.message; // Display response message
+    respondMessage.classList.remove('hidden'); // Show
+
+    if (response.ok) {
+      respondMessage.classList.remove('text-red-700', 'bg-red-200'); // Remove red
+      respondMessage.classList.add('text-green-700', 'bg-green-200'); // Add Green
+      searchRadios(); // Refresh results
+      closeModal();
+    } else {
+      respondMessage.classList.remove('text-green-700', 'bg-green-200'); // Remove green
+      respondMessage.classList.add('text-red-700', 'bg-red-200'); // Add Red
+    }
+  } catch (error) {
+    const respondMessage = document.getElementById('responseMessage');
+    respondMessage.innerText = 'An error occurred while updating the radio.';
+    respondMessage.classList.remove('hidden'); // Show
+    respondMessage.classList.remove('text-green-700', 'bg-green-200'); // Remove green
+    respondMessage.classList.add('text-red-700', 'bg-red-200'); // Add Red
   }
 }
