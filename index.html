@@ -13,6 +13,17 @@
     <!-- Search Section -->
     <div class="bg-white p-6 rounded shadow-md w-full max-w-2xl">
       <h2 class="text-xl font-bold mb-4">Search Radio</h2>
+
+      <div class="flex items-center justify-end mb-4">
+        <label for="searchBy" class="mr-2">Search By:</label>
+        <select id="searchBy" class="border p-2 mr-2">
+          <option value="">Any</option>
+          <option value="serial">Serial</option>
+          <option value="radioId">Radio ID</option>
+          <option value="alias">Alias</option>
+          <option value="fleet">Fleet</option>
+        </select>
+      </div>
       <input
         id="searchQuery"
         type="text"
@@ -23,7 +34,6 @@
     </div>
 
     <!-- Results Table -->
-
     <div class="bg-white p-6 rounded shadow-md w-full max-w-max overflow-x-auto relative">
       <h2 class="text-xl font-bold mb-4">Search Results</h2>
 
