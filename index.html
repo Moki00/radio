@@ -7,6 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-gray-100 flex flex-col items-center p-6 space-y-6">
+    <h1 class="text-3xl font-bold">Radio Inventory</h1>
+    <p class="text-gray-500">This view will be for Fire Mobile Swaps</p>
+
     <!-- Search Section -->
     <div class="bg-white p-6 rounded shadow-md w-full max-w-2xl">
       <h2 class="text-xl font-bold mb-4">Search Radio</h2>
@@ -17,6 +20,25 @@
         placeholder="Search by ID, Serial, Alias, or Fleet"
       />
       <button onclick="searchRadios()" class="bg-blue-500 text-white p-2 w-full">Search</button>
+    </div>
+
+    <div
+      id="modal"
+      class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center"
+    >
+      <div class="bg-white p-6 rounded shadow-md w-96">
+        <h2 class="text-xl font-bold mb-4">Update Alias</h2>
+        <p><strong>Serial #:</strong> <span id="modalSerial"></span></p>
+        <p><strong>Radio ID:</strong> <span id="modalRadioId"></span></p>
+        <label for="modalAlias" class="block mb-2">New Alias:</label>
+        <input id="modalAlias" type="text" class="border p-2 w-full mb-4" />
+        <div class="flex justify-between">
+          <button onclick="updateRadio()" class="bg-green-500 text-white p-2 w-1/2 mr-2">
+            Update
+          </button>
+          <button onclick="closeModal()" class="bg-red-500 text-white p-2 w-1/2">Cancel</button>
+        </div>
+      </div>
     </div>
 
     <!-- Results Table -->
@@ -38,27 +60,6 @@
           <!-- Results will be inserted here -->
         </tbody>
       </table>
-    </div>
-
-    <!-- Update Alias Section -->
-    <div class="bg-white p-6 rounded shadow-md w-full max-w-2xl">
-      <h2 class="text-xl font-bold mb-4">Update Radio Alias</h2>
-      <label for="radioId" class="block mb-2">Radio ID:</label>
-      <input
-        id="updateById"
-        type="text"
-        class="border p-2 w-full mb-4"
-        placeholder="Enter Radio ID"
-      />
-      <label for="radioAlias" class="block mb-2">New Alias:</label>
-      <input
-        id="updateAlias"
-        type="text"
-        class="border p-2 w-full mb-4"
-        placeholder="Enter New Alias"
-      />
-      <button onclick="updateRadio()" class="bg-green-500 text-white p-2 w-full">Update</button>
-      <p id="updateMessage" class="mt-4 text-center"></p>
     </div>
 
     <script src="scripts.js"></script>
