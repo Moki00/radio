@@ -14,7 +14,7 @@
         id="searchQuery"
         type="text"
         class="border p-2 w-full mb-4"
-        placeholder="Search by Radio ID, Serial #, or User Alias"
+        placeholder="Search by ID, Serial, Alias, or Fleet"
       />
       <button onclick="searchRadios()" class="bg-blue-500 text-white p-2 w-full">Search</button>
     </div>
@@ -25,11 +25,12 @@
       <table class="w-full border-collapse border border-gray-300">
         <thead>
           <tr class="bg-gray-200">
-            <th class="border p-2">Serial #</th>
-            <th class="border p-2">Radio ID</th>
-            <th class="border p-2">User Alias</th>
-            <th class="border p-2">Equipment Type</th>
-            <th class="border p-2">Department</th>
+            <th class="border p-2">Serial</th>
+            <th class="border p-2">Radio-ID</th>
+            <th class="border p-2">Alias</th>
+            <th class="border p-2">Fleet</th>
+            <th class="border p-2">Portable/Mobile</th>
+            <th class="border p-2">Dept</th>
             <th class="border p-2">Comments</th>
           </tr>
         </thead>
@@ -42,14 +43,14 @@
     <!-- Update Alias Section -->
     <div class="bg-white p-6 rounded shadow-md w-full max-w-2xl">
       <h2 class="text-xl font-bold mb-4">Update Radio Alias</h2>
-      <label class="block mb-2">Radio ID or Serial #:</label>
+      <label for="radioId" class="block mb-2">Radio ID:</label>
       <input
-        id="updateId"
+        id="updateById"
         type="text"
         class="border p-2 w-full mb-4"
-        placeholder="Enter Radio ID or Serial #"
+        placeholder="Enter Radio ID"
       />
-      <label class="block mb-2">New Alias:</label>
+      <label for="radioAlias" class="block mb-2">New Alias:</label>
       <input
         id="updateAlias"
         type="text"
