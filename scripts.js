@@ -9,14 +9,24 @@ async function searchRadios() {
     const response = await fetch('http://localhost:3000/api/radios');
     const radios = await response.json();
 
-    const filteredRadios = radios.filter(
+    const searchBy = document.getElementById('searchRadio').value;
+    let filteredRadios = radios.filter(
       radio =>
         radio['Department'] === 'Fire & Emergency Services' &&
         radio['Equipment Type'] === 'Mobile - In Car' &&
-        (String(radio['Radio ID']) === query ||
-          String(radio['Serial #']) === query ||
-          String(radio['User Alias']).toLowerCase().includes(query.toLowerCase()) ||
-          String(radio['Engraved ID']).toLowerCase().includes(query.toLowerCase()))
+        ((searchBy === 'any' &&
+          (String(radio['Radio ID']) === query ||
+            String(radio['Serial #']) === query ||
+            String(radio['User Alias']).toLowerCase().includes(query.toLowerCase()) ||
+            String(radio['Engraved ID']).toLowerCase().includes(query.toLowerCase()))) ||
+          (searchBy === 'radioId' &&
+            String(radio['Radio ID']).toLowerCase().includes(query.toLowerCase())) ||
+          (searchBy === 'serial' &&
+            String(radio['Serial #']).toLowerCase().includes(query.toLowerCase())) ||
+          (searchBy === 'alias' &&
+            String(radio['User Alias']).toLowerCase().includes(query.toLowerCase())) ||
+          (searchBy === 'engrave-id' &&
+            String(radio['Engraved ID']).toLowerCase().includes(query.toLowerCase())))
     );
 
     const sortBy = document.getElementById('sortBy').value;
@@ -26,8 +36,6 @@ async function searchRadios() {
       filteredRadios.sort((a, b) => a['Serial #'] - b['Serial #']);
     } else if (sortBy === 'alias') {
       filteredRadios.sort((a, b) => a['User Alias'].localeCompare(b['User Alias']));
-    } else if (sortBy === 'engravedId') {
-      filteredRadios.sort((a, b) => a['Engraved ID'].localeCompare(b['Engraved ID']));
     }
 
     displayResults(filteredRadios);
