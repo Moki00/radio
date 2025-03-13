@@ -1,4 +1,6 @@
-// Search radios by Radio ID, Serial #, User Alias, or Engraved ID
+// All Scripts
+
+// Search radios
 async function searchRadios() {
   const query = document.getElementById('searchQuery').value.trim();
   if (!query) return;
@@ -58,8 +60,6 @@ function displayResults(radios) {
       radio['Serial #']
     }", "${radio['Radio ID']}", "${radio['User Alias']}")'>${radio['User Alias'] || 'N/A'}</td>
     <td class='border p-2 border-gray-300'>${radio['Engraved ID'] || 'N/A'}</td>
-    <td class='border p-2 border-gray-300'>${radio['Equipment Type'] || 'N/A'}</td>
-    <td class='border p-2 border-gray-300'>${radio['Department'] || 'N/A'}</td>
     <td class='border p-2 border-gray-300'>${radio['Comments'] || 'N/A'}</td>
         `;
     tableBody.appendChild(row);
