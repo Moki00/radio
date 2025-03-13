@@ -12,23 +12,24 @@
 
     <!-- Search Section -->
     <div class="bg-white p-6 rounded shadow-md w-full max-w-2xl">
-      <h2 class="text-xl font-bold mb-4">Search Radio</h2>
-
-      <div class="flex items-center justify-end mb-4">
-        <label for="searchBy" class="mr-2">Search By:</label>
-        <select id="searchBy" class="border p-2 mr-2">
-          <option value="">Any</option>
-          <option value="serial">Serial</option>
-          <option value="radioId">Radio ID</option>
-          <option value="alias">Alias</option>
-          <option value="fleet">Fleet</option>
-        </select>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold">Search Radio</h2>
+        <div class="flex items-center">
+          <label for="searchRadio" class="mr-2">Search By:</label>
+          <select id="searchRadio" class="border p-2 mr-2">
+            <option value="any">Any</option>
+            <option value="serial">Serial</option>
+            <option value="radioId">Radio ID</option>
+            <option value="alias">Alias</option>
+            <option value="engraving">Apparatus</option>
+          </select>
+        </div>
       </div>
       <input
         id="searchQuery"
         type="text"
         class="border p-2 w-full mb-4"
-        placeholder="Search by ID, Serial, Alias, or Fleet"
+        placeholder="Search by ID, Serial, Alias, or Apparatus"
       />
       <button onclick="searchRadios()" class="bg-blue-500 text-white p-2 w-full">Search</button>
     </div>
@@ -62,9 +63,7 @@
             <th class="border p-2 border-gray-300">Serial</th>
             <th class="border p-2 border-gray-300">Radio-ID</th>
             <th class="border p-2 border-gray-300">Alias</th>
-            <th class="border p-2 border-gray-300">Fleet</th>
-            <th class="border p-2 border-gray-300">Mobile</th>
-            <th class="border p-2 border-gray-300">Fire Only</th>
+            <th class="border p-2 border-gray-300">Apparatus</th>
             <th class="border p-2 border-gray-300">Comments</th>
           </tr>
         </thead>
