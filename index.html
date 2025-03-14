@@ -82,13 +82,17 @@
         <p><strong>Radio ID:</strong> <span id="modalRadioId"></span></p>
         <label for="modalAlias" class="block mb-2">New Alias:</label>
         <input id="modalAlias" type="text" class="border p-2 w-full mb-4" />
-        <!-- alias length warning -->
+        <!-- Alias Length warning -->
         <div id="aliasLengthWarning" class="text-red-500 text-sm hidden">
           Alias must be 16 characters or less.
         </div>
-        <!-- wrong char warning -->
+        <!-- Wrong Char warning -->
         <div id="wrongCharWarning" class="text-red-500 text-sm hidden">
           That character is not allowed.
+        </div>
+        <!-- Duplicate Alias warning -->
+        <div id="aliasExistsWarning" class="text-red-500 text-sm hidden">
+          That Alias already exists.
         </div>
         <div class="flex justify-between">
           <button onclick="updateRadio()" class="bg-green-500 text-white p-2 w-1/2 mr-2">

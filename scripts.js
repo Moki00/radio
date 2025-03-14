@@ -102,13 +102,23 @@ async function updateRadio() {
   }
 
   try {
-    const response = await fetch('http://localhost:3000/api/update', {
+    const response = await fetch('http://localhost:3000/api/radios');
+    const radios = await response.json();
+    const aliasExists = radios.some(
+      radio => radio['User Alias'].toLowerCase() === alias.toLowerCase()
+    );
+    if (aliasExists) {
+      alert('Alias already exists! Choose a different alias.');
+      return;
+    }
+
+    const updateResponse = await fetch('http://localhost:3000/api/update', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 'Radio ID': radioId, 'Serial #': serial, 'User Alias': alias }),
     });
 
-    const results = await response.json();
+    const results = await updateResponse.json();
     console.log(results);
 
     const respondMessage = document.getElementById('responseMessage');
@@ -147,7 +157,8 @@ document.addEventListener('DOMContentLoaded', function () {
     searchRadios(); // Re-run the search to update the table
   });
 
-  document.getElementById('modalAlias').addEventListener('input', function () {
+  // Modal input
+  document.getElementById('modalAlias').addEventListener('input', async function () {
     const alias = this.value;
 
     // invalid characters Warning
@@ -173,6 +184,26 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       aliasLengthWarning.classList.add('hidden');
       this.classList.remove('border-red-500');
+    }
+
+    // duplicate Alias Warning
+    const aliasExistsWarning = document.getElementById('aliasExistsWarning');
+
+    try {
+      const response = await fetch('http://localhost:3000/api/radios');
+      const radios = await response.json();
+      const aliasExists = radios.some(
+        radio => radio['User Alias'].toLowerCase() === alias.toLowerCase()
+      );
+      if (aliasExists) {
+        aliasExistsWarning.classList.remove('hidden');
+        this.classList.add('border-red-500');
+      } else {
+        aliasExistsWarning.classList.add('hidden');
+        this.classList.remove('border-red-500');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
   });
 });
