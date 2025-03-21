@@ -207,3 +207,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+// Enable "Enter" key for search and update
+document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('searchQuery').addEventListener('keypress', function (event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      searchRadios();
+    }
+  });
+
+  document.getElementById('modalAlias').addEventListener('keypress', function (event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      updateRadio();
+    }
+  });
+});
